@@ -1,7 +1,6 @@
-# FPFE-Geant4
+# My first Geant4 application
 
 # How to build this application (reminder)
----
 
 1. You need to generate the Makefile by using cmake from the 
    build directory as (on the virtual machine)
