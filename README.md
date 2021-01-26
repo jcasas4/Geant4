@@ -1,6 +1,15 @@
 # My first Geant4 application
+This contains the code of the lab sessions of FPFE.
+
+To get the code of the first session:  
+`git clone --branch day1 git@github.com:folguera/FPFE-Geant4.git MyFirstApplication`
+
+To get the code of the second session:  
+`git clone --branch day2 git@github.com:folguera/FPFE-Geant4.git MyFirstApplication`
+
 
 # How to build this application (reminder)
+---
 
 1. You need to generate the Makefile by using cmake from the 
    build directory as (on the virtual machine)
