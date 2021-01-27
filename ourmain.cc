@@ -4,27 +4,30 @@
 
 // HERE 
 #include "G4NistManager.hh"
+#include "G4RunManager.hh"
+
+#include "G4PhysListFactory.hh"
+
+#include "YourDetectorConstruction.hh"
+#include "YourPrimaryGeneratorAction.hh"
 
 
 int main() {
   
-  // the code must go here
-  // this is some example to play with
-  // try here all the commands that we saw in class
+  //1. create the RunManager object 
+  G4RunManager* runManager = new G4RunManager();
+ 
+  //2. Create an object from YourDetectorConstruction and register in the Run-Manager
+  YourDetectorConstruction* detector = new YourDetectorConstruction();
+  runManager->SetUserInitialization( detector );
+   
+  //3. Create/obtain an Physics List and register it in the Run-Manager 
+  G4PhysListFactory physListFactory;
+  const G4String plName = "FTFP_BERT";
+  G4VModularPhysicsList* pl = physListFactory.GetReferencePhysList( plName );
+  runManager->SetUserInitialization( pl ); 
   
-  const G4String elName = "Al";
-  G4NistManager::Instance()->PrintElement(elName);
-  
-  const G4String matCName = "simple";
-  G4NistManager::Instance()->ListMaterials(matCName);
-  
-  const G4String matName = "G4_Si_askjgd asdgh";
-  const G4Material* theSi = G4NistManager::Instance()->FindOrBuildMaterial(matName);
-  if (theSi != nullptr) {
-    G4cout << theSi << G4endl;
-  } else {
-    G4cout << " nothing: " << matName << G4endl;
-  }
-  
+  YourPrimaryGeneratorAction* primaryGenerator = new YourPrimaryGeneratorAction( detector );
+   
   return 0;
 }
