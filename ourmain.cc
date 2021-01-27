@@ -27,7 +27,20 @@ int main() {
   G4VModularPhysicsList* pl = physListFactory.GetReferencePhysList( plName );
   runManager->SetUserInitialization( pl ); 
   
-  YourPrimaryGeneratorAction* primaryGenerator = new YourPrimaryGeneratorAction( detector );
+  //4. Create your action initizalizatio and register in the Run Manager:
+  runManager->SetUserInitialization ( new YourPrimaryGeneratorAction( detector ) );
+  
+  // initialization of the run
+  runManager->Initialize();
+
+  // add verbosity
+  G4EventManager::GetEventManager()->GetTrackingManager()->SetVerboseLevel(1);
+  
+  // simulate 10 events
+  runManager->BeamOn(10); 
+   
+  // delete the Run-manager
+  delete runManager; 
    
   return 0;
 }

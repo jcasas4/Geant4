@@ -7,9 +7,21 @@
 YourPrimaryGeneratorAction:YourPrimaryGeneratorAction(YourDetectorConstruction* det):
   G4UserPrimaryGeneratorAction() {
   fYourDetector = det;
-  G4cout<< det->GetTargetMaterial() << G4endl;
+// create particle gun and set default properties:
+  fParticleGun  = new G4ParticleGun(1);
+  // particle type: e-
+  G4ParticleDefinition* part = G4Electron::Definition();
+  fParticleGun->SetParticleDefinition(part);
+  // direction: 1,0,0 i.e. to the target 
+  fParticleGun->SetParticleMomentumDirection( G4ThreeVector(1.0, 0.0, 0.0) );
+  // kinetic energy:  30 MeV
+  fParticleGun->SetParticleEnergy(30.0*CLHEP::MeV);
+  // set postion
+  fParticleGun->SetParticlePosition( G4ThreeVector(fYourDetector->GetGunXPosition(), 0.0, 0.0) );
 }
 
 YourPrimaryGeneratorAction::~YourPrimaryGeneratorAction(){}
 
-void YourPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {}
+void YourPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
+  fParticleGun->GeneratePrimaryVertex(anEvent);
+}

@@ -3,6 +3,9 @@
 
 #include "G4VUserPrimaryGeneratorAction.hh"
 
+class YourDetectorConstruction;
+class G4ParticleGun; 
+
 class YourPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 public: 
   
@@ -13,5 +16,6 @@ public:
 
 private: 
   YourDetectorConstruction* fYourDetector;
+  G4ParticleGun*  fParticleGun;
 }
 #endif
