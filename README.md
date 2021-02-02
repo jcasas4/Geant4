@@ -57,11 +57,9 @@ application (from the build where the executable is located):
   the following commands in the UI session (either in the "QT" session or in the 
   session "terminal"):
 
-``
-/run/initialize 
-/control/execute ../vis.mac
-/control/execute ../g4Macro.mac
-``
+`/run/initialize`
+`/control/execute ../vis.mac`
+`/control/execute ../g4Macro.mac`
 
 # Experimental data
 
