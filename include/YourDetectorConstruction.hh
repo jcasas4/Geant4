@@ -59,6 +59,9 @@ class YourDetectorConstruction : public G4VUserDetectorConstruction {
   // Data member declaration
   private:
 
+    // The detector messenger pointer: to set the target thickness
+    YourDetectorMessenger* fDetMessenger;
+
     // Target material 
     G4Material*            fTargetMaterial;
 
