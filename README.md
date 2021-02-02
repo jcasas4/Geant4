@@ -33,3 +33,44 @@ To get the code of the second session:
 
   If everything is compiled and linked successfully, the 'yourMainApplication'
   executable of the application is available under this build directory. 
+
+
+# Macro files
+
+You can find the Geant4 macro file ("g4Macro.mac") that we used during the 
+development of our application as well as the macro file ("vis.mac") that we 
+used to create a simply visualisation setup. As you remember, our application 
+can be execute either in interactive (no any input argument) or in batch mode 
+(the only one input argument is a Geant4 macro file). So you can run our 
+application (from the build where the executable is located):
+
+1. with the given "g4Macro.mac" file as 
+
+./yourMainApplication ../g4Macro.mac 
+
+2. in interactive mode as
+
+./yourMainApplication
+
+  When executing in interactive mode, you can set up the visualisation before 
+  executing the simulation (but the run needs to be initialised before) by invoking 
+  the following commands in the UI session (either in the "QT" session or in the 
+  session "terminal"):
+
+/run/initialize 
+/control/execute ../vis.mac
+/control/execute ../g4Macro.mac
+
+
+# Experimental data
+=================
+
+We used our application at the end of our development to compute the distribution 
+of energy deposited by 100 [MeV] electrons in 5.6 [um] thin silicon target. You 
+can find all related information and macro files under the experiment directory: 
+ - "exp_Meroli_100MeV_electron_5p6um_Si.dat" the experimental data 
+ - "Meroli2011_paper.pdf" the paper where the experimental data is taken from
+ - "g4Macro_Meroli_100MeV_electron_5p6um_Si.mac" Geant4 macro to our application 
+   to achieve the experimental setup (target material, thickness primary energy,
+   particle type, etc.) and to activate the generation of the energy deposit 
+   histogram during the simulation (and set its properties)
