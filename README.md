@@ -46,24 +46,22 @@ application (from the build where the executable is located):
 
 1. with the given "g4Macro.mac" file as 
 
-./yourMainApplication ../g4Macro.mac 
+`./yourMainApplication ../g4Macro.mac`
 
 2. in interactive mode as
 
-./yourMainApplication
+`./yourMainApplication`
 
   When executing in interactive mode, you can set up the visualisation before 
   executing the simulation (but the run needs to be initialised before) by invoking 
   the following commands in the UI session (either in the "QT" session or in the 
   session "terminal"):
 
-/run/initialize 
-/control/execute ../vis.mac
-/control/execute ../g4Macro.mac
-
+`/run/initialize`
+`/control/execute ../vis.mac`
+`/control/execute ../g4Macro.mac`
 
 # Experimental data
-=================
 
 We used our application at the end of our development to compute the distribution 
 of energy deposited by 100 [MeV] electrons in 5.6 [um] thin silicon target. You 
