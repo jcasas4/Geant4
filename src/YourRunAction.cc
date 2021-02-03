@@ -3,72 +3,102 @@
 
 #include "YourDetectorConstruction.hh"
 #include "YourPrimaryGeneratorAction.hh"
-#include "YourRun.hh"
+
 #include "G4Run.hh"
-#include "YourRunActionMessenger.hh"
+#include "G4RunManager.hh"
+#include "G4UnitsTable.hh"
+#include "G4SystemOfUnits.hh"
 
-#include "Randomize.hh"
+#include "YourAnalysis.hh"
 
+YourRunAction::YourRunAction(YourPrimaryGeneratorAction* prim) 
+  :   G4UserRunAction(),
+      fYourPrimary(prim) 
+{
 
-YourRunAction::YourRunAction(YourDetectorConstruction* det, YourPrimaryGeneratorAction* prim) 
-:   G4UserRunAction(),
-    fYourDetector(det),
-    fYourPrimary(prim),
-    fYourRun(nullptr),
-    fIsEdepHistogramUICmdInvoked(false) { 
-  /* histo manager could be created here */ 
-  // Create our own UI messenger object that will interact to this Run-Action
-  // to set some properties that will be used to update YourRun object (generated 
-  // by calling this Run-Action::GenerateRun method) in the BeginOfRunAction method.
-  fMessenger = new YourRunActionMessenger(this);
+  // set printing event number per each event
+  G4RunManager::GetRunManager()->SetPrintProgress(1);
+
+  // Create analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+  G4cout << "Using " << analysisManager->GetType() << G4endl;
+
+  // Create directories
+  analysisManager->SetHistoDirectoryName("histograms");
+  analysisManager->SetNtupleDirectoryName("ntuple");
+  analysisManager->SetVerboseLevel(1);
+  analysisManager->SetNtupleMerging(true);
+  // Note: merging ntuples is available only with Root output
+
+  // Book histograms, ntuple
+  //
+
+  // Creating histograms
+  analysisManager->CreateH1("Edep","Edep in target", 100, 0., 20*keV);
+  analysisManager->CreateH1("trackL","trackL in target", 100, 0., 20*cm);
+
+  // Creating ntuple
+  //
+  analysisManager->CreateNtuple("Test", "Edep and TrackL");
+  analysisManager->CreateNtupleDColumn("Edep");
+  analysisManager->CreateNtupleDColumn("trackL");
+  analysisManager->FinishNtuple();
 }
 
 YourRunAction::~YourRunAction() { 
   /* histo manager must be deleted here then*/ 
-  // delete all dynamically allocated objects here 
-  delete fMessenger;
-}
-
-
-G4Run* YourRunAction::GenerateRun() {
-	fYourRun = new YourRun(fYourDetector, fYourPrimary);
-	return fYourRun;
+  delete G4AnalysisManager::Instance();
 }
 
 
 void YourRunAction::BeginOfRunAction(const G4Run* /*run*/) {
-    // Show Rndm status (only for the Master thread)
-//    if ( IsMaster() ) G4Random::showEngineStatus();
-    //
-    // Make sure that the Gun position is correct: the user can change the target
-    // thickness between construction of objects and start of the run.  
-    // note: primary generator is set in the CTR only for the Worker threads in the 
-    //       ActionInitialization (left null for Master in the BuildForMaster())
-    if ( fYourPrimary ) { 
-        fYourPrimary->UpdatePosition();
-    }
-    // Update the properties of the Energy-deposit histogram member of YourRun, 
-    // that is already available at this point: Only if the user invoked the UI 
-    // command /yourApp/runAction/edepHistoto set properties of the Edep-histo.
-    if ( fIsEdepHistogramUICmdInvoked ) {
-      // user defined the properties of the Edep-histo by invoking the UI command 
-      fYourRun->SetEdepHisto(fEdepHistFileName, fEdepHistMinEnergy, 
-                             fEdepHistMaxEnergy, fEdepHistNumBins);
-    }                        
-    //
-    // G4AnalysisManager* analysisManager OpenFile
+  // Make sure that the Gun position is correct: the user can change the target
+  // thickness between construction of objects and start of the run.  
+  // note: primary generator is set in the CTR only for the Worker threads in the 
+  //       ActionInitialization (left null for Master in the BuildForMaster())
+  if ( fYourPrimary ) { 
+    fYourPrimary->UpdatePosition();
+  }
+
+  // Get analysis manager
+  auto analysisManager = G4AnalysisManager::Instance();
+
+  // Open an output file
+  //
+  G4String fileName = "YourApplication";
+  analysisManager->OpenFile(fileName);
 }
 
 
 void YourRunAction::EndOfRunAction(const G4Run*) {
-    // Print Run summary (only for the Master thread)
-    if ( IsMaster() ) { 
-    	fYourRun->EndOfRunSummary();    
+  // print histogram statistics
+  //
+  auto analysisManager = G4AnalysisManager::Instance();
+  
+  if ( analysisManager->GetH1(1) ) {
+    G4cout << G4endl << " ----> print histograms statistic ";
+    if(isMaster) {
+      G4cout << "for the entire run " << G4endl << G4endl;
     }
-    //
-    // Show Rndm status (only for the Master thread)
-//    if ( IsMaster() ) G4Random::showEngineStatus();
-	//
-	// G4AnalysisManager* analysisManager Write and CloseFile
+    else {
+      G4cout << "for the local thread " << G4endl << G4endl;
+    }
+
+    G4cout << " Edep : mean = "
+	   << G4BestUnit(analysisManager->GetH1(0)->mean(), "Energy")
+	   << " rms = "
+	   << G4BestUnit(analysisManager->GetH1(0)->rms(),  "Energy") << G4endl;
+
+    G4cout << " TrackL : mean = "
+	   << G4BestUnit(analysisManager->GetH1(1)->mean(), "Length")
+	   << " rms = "
+	   << G4BestUnit(analysisManager->GetH1(1)->rms(),  "Length") << G4endl;
+
+  }
+
+  // save histograms & ntuple
+  //
+  analysisManager->Write();
+  analysisManager->CloseFile(); 
 }
 

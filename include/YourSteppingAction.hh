@@ -9,7 +9,6 @@ class YourDetectorConstruction;
 class YourEventAction;
 class G4VPhysicalVolume;
 
-
 class YourSteppingAction : public G4UserSteppingAction {
 
   // Method declaration:

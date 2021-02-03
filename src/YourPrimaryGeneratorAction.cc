@@ -31,11 +31,11 @@ void YourPrimaryGeneratorAction::GeneratePrimaries(G4Event* evt) {
 void YourPrimaryGeneratorAction::SetDefaultKinematic() {
     //
     // default primary particle: 30 [MeV] e- perpendicular to the target
-	G4ParticleDefinition* part = G4ParticleTable::GetParticleTable()->FindParticle( "e-" );
-    fParticleGun->SetParticleDefinition( part );
-    fParticleGun->SetParticleMomentumDirection( G4ThreeVector(1., 0., 0.) );
-    fParticleGun->SetParticleEnergy( 30.*CLHEP::MeV );
-    UpdatePosition();
+   G4ParticleDefinition* part = G4ParticleTable::GetParticleTable()->FindParticle( "e-" );
+   fParticleGun->SetParticleDefinition( part );
+   fParticleGun->SetParticleMomentumDirection( G4ThreeVector(1., 0., 0.) );
+   fParticleGun->SetParticleEnergy( 30.*CLHEP::MeV );
+   UpdatePosition();
 }
 
 

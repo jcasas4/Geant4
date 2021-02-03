@@ -21,11 +21,9 @@ class YourEventAction : public G4UserEventAction {
 
     // Public method (used by the SteppingAction) to add energy deposit and 
     // charged particle track length information to this object after each step.
-    void AddEnergyDepositPerStep(const G4double edepAlongTheStep) { 
-        fEdepPerEvt += edepAlongTheStep;
-    }
-    void AddChargedTrackLengthPerStep(const G4double trackLAlongTheStep) { 
-    	fChTrackLengthPerEvt += trackLAlongTheStep;
+    void Add(G4double edep, G4double trackL) {
+      fEdepPerEvt += edep;
+      fChTrackLengthPerEvt += trackL;
     }
 
   // Data member declarations:
@@ -35,5 +33,6 @@ class YourEventAction : public G4UserEventAction {
     G4double   fChTrackLengthPerEvt;
 
 };
+
 
 #endif
