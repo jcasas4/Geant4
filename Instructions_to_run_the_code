@@ -1,0 +1,15 @@
+Instrucciones para ejecutar la simulacion
+
+Para ejecutar la simulacion hay que ir a la carpeta build y compilar la solucion. Despues hay que escribir en la terminal ./yourMainApplication ../meroli.mac El resultado de esto es un archivo YourApplication.root que aparecera en la carpeta build
+
+---------------------------------------------
+
+Instrucciones para transformar este fichero en archivos .dat
+
+Hay que irse a la carpeta build y alojar ahi el archivo Writer.py de la carpeta Analysis. Despues en la terminal escribir python Writer.py YourApplication.root. El resultado de esto son dos archivos Edep.dat y trackL.dat
+
+---------------------------------------------
+
+Instrucciones para hacer las representaciones graficas
+
+Primero transformar el Edep.dat en .csv sin la fila con los nombres de las columnas ya que el codigo del analisis esta hecho para leer .csv. Una vez hecho esto basta con correr el archivo Plotter.py de la carpeta Analysis
