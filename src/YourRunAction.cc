@@ -1,3 +1,6 @@
+// Este modulo implementa la estadistica y la dispersion de la energia
+// depositada y de la longitud de las trazas de las particulas cargadas
+// en el detector
 
 #include "YourRunAction.hh"
 

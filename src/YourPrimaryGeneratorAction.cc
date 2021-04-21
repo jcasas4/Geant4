@@ -1,3 +1,6 @@
+// En este modulo se configura el tipo de particulas que habra en el 
+// detector. En este caso seran electrones de 30 MeV que se dirigen 
+// hacia el objetivo en la direccion del eje x
 
 #include "YourPrimaryGeneratorAction.hh"
 

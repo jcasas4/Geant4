@@ -1,3 +1,8 @@
+// En este modulo se implementa lo necesario para recoger los datos
+// de la energia depositada y la longitud de las trazas de las particulas
+// cargadas en el detector en cada paso, y posteriormente guardadas en
+// YourEventAction
+
 #include "YourSteppingAction.hh"
 
 #include "YourDetectorConstruction.hh"

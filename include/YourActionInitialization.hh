@@ -1,3 +1,5 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar la accion en el detector en YourActionInitialization.cc
 
 #ifndef YOURACTIONINITIALIZATION_HH
 #define YOURACTIONINITIALIZATION_HH

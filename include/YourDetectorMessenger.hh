@@ -1,3 +1,6 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar la accion en el detector en YourDetectorMessenger.cc
+
 // A UI messenger class that implements our own UI commands to manipulate some 
 // properties (thickness, material) of the detector Target. An object from this 
 // class must be created and stored in the coresponding YourDetectorConstruction

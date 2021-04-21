@@ -1,0 +1,3 @@
+/home/uo223789/day3/FPFE-Geant4/build/CMakeFiles/rebuild_cache.dir
+/home/uo223789/day3/FPFE-Geant4/build/CMakeFiles/edit_cache.dir
+/home/uo223789/day3/FPFE-Geant4/build/CMakeFiles/yourMainApplication.dir

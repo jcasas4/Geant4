@@ -1,3 +1,5 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar la accion en el detector en YourEventAction.cc
 
 #ifndef YOUREVENTACTION_HH
 #define YOUREVENTACTION_HH

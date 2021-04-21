@@ -1,3 +1,6 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar el detector en YourDetectorConstruction.cc
+
 // This class is mandatory: descriptin of the detector
 #ifndef YOURDETECTORCONTRUCTION_HH
 #define YOURDETECTORCONTRUCTION_HH

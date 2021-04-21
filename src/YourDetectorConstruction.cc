@@ -111,4 +111,3 @@ G4VPhysicalVolume* YourDetectorConstruction::Construct() {
     // III. RETURN WITH THE World PHYSICAL-VOLUME POINTER:
     return worldPhyscal;
 }
-

@@ -1,3 +1,6 @@
+// En este modulo se implementa el main que va llamando al resto de
+// modulos
+
 #include <iostream>
 #include "G4Types.hh"
 #include "globals.hh"
@@ -17,26 +20,26 @@
 
 int main(int argc, char** argv) {
   
-  // Detect interactive mode (if no arguments) and define UI: 
+  // Defining UI: 
   G4UIExecutive* ui=0;
   if (argc ==1 ){
     ui = new G4UIExecutive(argc,argv, "qt");
   }
 
-  //1. create the RunManager object 
+  // Creating the RunManager object 
   G4RunManager* runManager = new G4RunManager();
  
-  //2. Create an object from YourDetectorConstruction and register in the Run-Manager
+  // Creating an object from YourDetectorConstruction
   YourDetectorConstruction* detector = new YourDetectorConstruction();
   runManager->SetUserInitialization( detector );
    
-  //3. Create/obtain an Physics List and register it in the Run-Manager 
+  // Creating an Physics List
   G4PhysListFactory physListFactory;
   const G4String plName = "FTFP_BERT";
   G4VModularPhysicsList* pl = physListFactory.GetReferencePhysList( plName );
   runManager->SetUserInitialization( pl ); 
   
-  //4. Create your action initizalizatio and register in the Run Manager:
+  // Initializing the detector:
   runManager->SetUserInitialization ( new YourActionInitialization( detector ) );
   
   // initialization of the run
@@ -47,11 +50,11 @@ int main(int argc, char** argv) {
   //  G4UImanager* UI = G4UImanager::GetUIpointer();
   //  UI->ApplyCommand("/control/execute g4macro.mac");
 
-  // visualization
+  // Visualization
   G4VisManager* visManager = new G4VisExecutive();
   visManager->Initialize();
 
-  // Detect batch-mode: 
+  // Batch-mode: 
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
   if (!ui) {
     G4String cmd = "/control/execute ";
@@ -62,8 +65,6 @@ int main(int argc, char** argv) {
     delete ui;
   }
  
-   
-  // delete the Run-manager
   delete runManager; 
    
   return 0;

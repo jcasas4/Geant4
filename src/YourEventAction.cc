@@ -1,3 +1,6 @@
+// Este modulo implementa lo necesario para guardar la energia depositada
+// y las longitudes de las trazas de las particulas cargadas en las capas
+// de absorcion y de gap definidas en el YourSteppingAction
 
 #include "YourEventAction.hh"
 #include "YourRunAction.hh"

@@ -1,3 +1,6 @@
+// En este modulo se implementa lo necesario para que se pueda configurar
+// mediante linea de comandos, tanto el espesor como el material del
+// target
 
 #include "YourDetectorMessenger.hh"
 

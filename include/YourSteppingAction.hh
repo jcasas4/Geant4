@@ -1,3 +1,5 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar la accion en el detector en YourSteppingAction.cc
 
 #ifndef YOURSTEPPINGACTION_HH
 #define YOURSTEPPINGACTION_HH

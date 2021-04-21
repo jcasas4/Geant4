@@ -1,3 +1,5 @@
+// En este modulo se definen las clases y metodos necesarios para 
+// implementar la accion en el detector en YourRunAction.cc
 
 #ifndef YOURRUNACTION_HH
 #define YOURRUNACTION_HH
